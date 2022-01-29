@@ -14,11 +14,21 @@ from .system import Path
 
 DEVNULL = open(os.devnull, 'w')
 
+
+def replace(old, new, str, caseinsentive=False):
+    if caseinsentive:
+        return str.replace(old, new)
+    else:
+        return re.sub(re.escape(old), new, str, flags=re.IGNORECASE)
+
+
 if six.PY2:
     import anydbm
+
     shelve_open_error = anydbm.error
 else:
     import dbm
+
     shelve_open_error = dbm.error
 
 
@@ -80,10 +90,12 @@ def default_settings(params):
             print(settings.apt)
 
     """
+
     def _default_settings(fn, command):
         for k, w in params.items():
             settings.setdefault(k, w)
         return fn(command)
+
     return decorator(_default_settings)
 
 
@@ -187,6 +199,7 @@ def is_app(command, *app_names, **kwargs):
 
 def for_app(*app_names, **kwargs):
     """Specifies that matching script is for one of app names."""
+
     def _for_app(fn, command):
         if is_app(command, *app_names, **kwargs):
             return fn(command)
@@ -277,6 +290,7 @@ def cache(*depends_on):
     Only functions should be wrapped in `cache`, not methods.
 
     """
+
     def cache_decorator(fn):
         @memoize
         @wraps(fn)
@@ -324,7 +338,7 @@ def get_valid_history_without_current(command):
     from thefuck.shells import shell
     history = shell.get_history()
     tf_alias = get_alias()
-    executables = set(get_all_executables())\
+    executables = set(get_all_executables()) \
         .union(shell.get_builtin_commands())
 
     return [line for line in _not_corrected(history, tf_alias)
