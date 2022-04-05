@@ -1,4 +1,6 @@
 import atexit
+import difflib
+import itertools
 import os
 import pickle
 import re
@@ -100,6 +102,19 @@ def get_closest(word, possibilities, cutoff=0.6, fallback_to_first=True):
         if fallback_to_first:
             return possibilities[0]
 
+def get_close_matches_icase(word, possibilities, *args, **kwargs):
+    """ Case-insensitive version of difflib.get_close_matches """
+    lword = word.lower()
+    lpos = {}
+    for p in possibilities:
+        if p.lower() not in lpos:
+            lpos[p.lower()] = [p]
+        else:
+            lpos[p.lower()].append(p)
+    lmatches = difflib.get_close_matches(lword, lpos.keys(), *args, **kwargs)
+    ret = [lpos[m] for m in lmatches]
+    ret = itertools.chain.from_iterable(ret)
+    return set(ret)
 
 def get_close_matches(word, possibilities, n=None, cutoff=0.6):
     """Overrides `difflib.get_close_match` to control argument `n`."""
