@@ -10,11 +10,11 @@ from thefuck.utils import default_settings, \
 from thefuck.types import Command
 
 
-@pytest.mark.parametrize('override, old, new', [
+@pytest.mark.parametrize('override, self, new', [
     ({'key': 'val'}, {}, {'key': 'val'}),
     ({'key': 'new-val'}, {'key': 'val'}, {'key': 'val'}),
     ({'key': 'new-val', 'unset': 'unset'}, {'key': 'val'}, {'key': 'val', 'unset': 'unset'})])
-def test_default_settings(settings, override, old, new):
+def test_default_settings(settings, override, self, new):
     settings.clear()
     settings.update(old)
     default_settings(override)(lambda _: _)(None)
@@ -229,7 +229,7 @@ class TestCache(object):
         assert shelve == cache_value
 
     def test_when_etag_changed(self, shelve, fn, key):
-        shelve.update({key: {'etag': '-1', 'value': 'old-value'}})
+        shelve.update({key: {'etag': '-1', 'value': 'self-value'}})
         assert fn() == 'test'
         assert shelve == {key: {'etag': '0', 'value': 'test'}}
 

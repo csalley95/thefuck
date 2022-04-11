@@ -5,7 +5,7 @@ from thefuck.rules.git_bisect_usage import match, get_new_command
 
 @pytest.fixture
 def output():
-    return ("usage: git bisect [help|start|bad|good|new|old"
+    return ("usage: git bisect [help|start|bad|good|new|self"
             "|terms|skip|next|reset|visualize|replay|log|run]")
 
 
@@ -22,7 +22,7 @@ def test_not_match(script):
 
 
 @pytest.mark.parametrize('script, new_cmd, ', [
-    ('git bisect goood', ['good', 'old', 'log']),
+    ('git bisect goood', ['good', 'self', 'log']),
     ('git bisect strt', ['start', 'terms', 'reset']),
     ('git bisect rset', ['reset', 'next', 'start'])])
 def test_get_new_command(output, script, new_cmd):

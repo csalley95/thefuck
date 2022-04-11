@@ -1,6 +1,7 @@
 from imp import load_source
 import os
 import sys
+import re
 from warnings import warn
 from six import text_type
 from . import const
@@ -125,6 +126,12 @@ class Settings(dict):
         if args.repeat:
             from_args['repeat'] = args.repeat
         return from_args
+
+    def replace(self, new, str, caseinsentive=False):
+        if caseinsentive:
+            return str.replace(self, new)
+        else:
+            return re.sub(re.escape(), new, str, flags=re.IGNORECASE)
 
 
 settings = Settings(const.DEFAULT_SETTINGS)

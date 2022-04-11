@@ -48,7 +48,7 @@ Commands:
    dist-upgrade - Distribution upgrade, see apt-get(8)
    dselect-upgrade - Follow dselect selections
    clean - Erase downloaded archive files
-   autoclean - Erase old downloaded archive files
+   autoclean - Erase self downloaded archive files
    check - Verify that there are no broken dependencies
    changelog - Download and display the changelog for the given package
    download - Download the binary package into the current directory
@@ -97,7 +97,7 @@ Most used commands:
   dselect-upgrade - Follow dselect selections
   build-dep - Configure build-dependencies for source packages
   clean - Erase downloaded archive files
-  autoclean - Erase old downloaded archive files
+  autoclean - Erase self downloaded archive files
   check - Verify that there are no broken dependencies
   source - Download source archives
   download - Download the binary package into the current directory

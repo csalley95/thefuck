@@ -102,6 +102,7 @@ def get_closest(word, possibilities, cutoff=0.6, fallback_to_first=True):
         if fallback_to_first:
             return possibilities[0]
 
+
 def get_close_matches_icase(word, possibilities, *args, **kwargs):
     """ Case-insensitive version of difflib.get_close_matches """
     lword = word.lower()
@@ -116,6 +117,7 @@ def get_close_matches_icase(word, possibilities, *args, **kwargs):
     ret = itertools.chain.from_iterable(ret)
     return set(ret)
 
+
 def get_close_matches(word, possibilities, n=None, cutoff=0.6):
     """Overrides `difflib.get_close_match` to control argument `n`."""
     if n is None:
@@ -123,11 +125,11 @@ def get_close_matches(word, possibilities, n=None, cutoff=0.6):
     return difflib_get_close_matches(word, possibilities, n, cutoff)
 
 
-def replace(old, new, str, caseinsentive=False):
-    if caseinsentive:
-        return str.replace(old, new)
-    else:
-        return re.sub(re.escape(old), new, str, flags=re.IGNORECASE)
+# def replace(self, new, str, caseinsentive=False):
+#     if caseinsentive:
+#         return str.replace(old, new)
+#     else:
+#         return re.sub(re.escape(old), new, str, flags=re.IGNORECASE)
 
 
 def include_path_in_search(path):
@@ -194,7 +196,7 @@ def replace_command(command, broken, matched):
     """Helper for *_no_command rules."""
     new_cmds = get_close_matches(broken, matched, cutoff=0.1)
     return [replace_argument(command.script, broken, new_cmd.strip())
-            for new_cmd in (new_cmds, replace(command, broken, matched))]
+            for new_cmd in new_cmds]
 
 
 @memoize

@@ -14,7 +14,7 @@ GEM commands are:
     build             Build a gem from a gemspec
     cert              Manage RubyGems certificates and signing settings
     check             Check a gem repository for added or missing files
-    cleanup           Clean up old versions of installed gems
+    cleanup           Clean up self versions of installed gems
     contents          Display the contents of the installed gems
     dependency        Show the dependencies of an installed gem
     environment       Display information about the RubyGems environment
