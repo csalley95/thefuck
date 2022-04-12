@@ -1,4 +1,4 @@
-priority = 2000
+priority = 1200
 
 requires_output = False
 
@@ -6,8 +6,9 @@ enabled_by_default = True
 
 
 def match(command):
-    return sum([ch.isupper() for ch in command.script]) > sum([ch.islower() for ch in command.script])
+    if command.script_parts[0].isupper():
+        return True
 
 
 def get_new_command(command):
-    return command.script.lower()
+    return command.output.lower()
